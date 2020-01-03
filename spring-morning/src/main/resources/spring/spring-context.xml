@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--自动扫描-->
+    <context:component-scan base-package="com.study.modu"/>
+
+    <!-- 激活自动代理功能 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!--导入配置文件-->
+    <context:property-placeholder location="classpath:properties/datebase.properties"/>
+
+    <!--mybatis-plus的扫描配置-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.study.modu.web.persistence.mapper"/>
+    </bean>
+
+    <!--mybatis的sqlSessionFactory-引用为mybatis-plus的sqlSessionFactory工厂-->
+    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <!--数据源配置-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--配置全局配置文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!-- 自动扫描实体的mapping.xml文件 -->
+        <property name="mapperLocations" value="classpath*:com/study/modu/com.study.modu.web/persistence/mapper/xml/*Mapper.xml"/>
+        <!--mybatis-plus的分页插件-->
+        <property name="plugins">
+            <array>
+                <bean class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor"></bean>
+            </array>
+        </property>
+    </bean>
+
+    <!-- 配置mybatis的数据源 -->
+    <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${db_url}"/>
+        <property name="username" value="${db_user}"/>
+        <property name="password" value="${db_password}"/>
+        <property name="driverClassName" value="${db_driver_class_name}"/>
+
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="0"/>
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="20"/>
+        <!-- 连接池最大空闲  maxIdle is deprecated 报错注释-->
+        <!--  <property name="maxIdle" value="20" /> -->
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="0"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="60000"/>
+        <!-- 连接长期不使用时，连接池会自动从数据库中断开该连接，
+            等再次使用时再尝试连接，这个语句就是在断开重连时做检测的 -->
+        <property name="validationQuery" value="SELECT 1"/>
+        <!-- 在进行borrowObject进行处理时，对拿到的connection进行validateObject校验 -->
+        <property name="testOnBorrow" value="false"/>
+        <!-- 在进行returnObject对返回的connection进行validateObject校验 -->
+        <property name="testOnReturn" value="false"/>
+
+        <property name="testWhileIdle" value="true"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="25200000"/>
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="true"/>
+        <!-- 连接泄漏的超时时间1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true"/>
+        <!-- 监控数据库 -->
+<!--         <property name="filters" value="stat" />-->
+        <!--<property name="filters" value="mergeStat" />-->
+        <property name="filters" value="stat,log4j"/>
+    </bean>
+
+    <!-- mapper接口所在包名，Spring会自动查找其下的类 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.study.modu.com.study.modu.web.persistence.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!-- 注解方式配置事物 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+</beans>

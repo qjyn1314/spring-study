@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.modu.web.persistence.mapper.KoUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.study.modu.web.persistence.entity.KoUser">
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="real_name" property="realName" />
+        <result column="identity_card" property="identityCard" />
+        <result column="user_email" property="userEmail" />
+        <result column="sex" property="sex" />
+        <result column="age" property="age" />
+        <result column="user_password" property="userPassword" />
+        <result column="salt" property="salt" />
+        <result column="postal_address" property="postalAddress" />
+        <result column="contact_number" property="contactNumber" />
+        <result column="login_time" property="loginTime" />
+        <result column="creater" property="creater" />
+        <result column="creater_time" property="createrTime" />
+        <result column="updater" property="updater" />
+        <result column="updater_time" property="updaterTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_name, real_name, identity_card, user_email, sex, age, user_password, salt, postal_address, contact_number, login_time, creater, creater_time, updater, updater_time
+    </sql>
+
+</mapper>

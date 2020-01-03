@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--自动扫描-进入spring-mvc前端控制层（若是自动扫描则必须配置）-->
+    <context:component-scan base-package="com.study.modu"/>
+
+    <!--将静态资源交由默认的servlet处理-->
+    <mvc:default-servlet-handler/>
+
+    <!--配置swagger资源文件-->
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+
+
+</beans>

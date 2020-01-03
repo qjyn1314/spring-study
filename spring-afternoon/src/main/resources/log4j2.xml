@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 设置log4j2的自身log级别为warn -->
+<!-- OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<Configuration status="DEBUG">
+
+    <!-- 变量配置 -->
+    <Properties>
+        <Property name="logFilePath">/var/spring-afternoon</Property>
+        <!--日志输出格式-->
+        <Property name="expression">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36}-%-5level(%F:%L)>>%M - %msg%xEx%n</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- 控制台输出 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${expression}"/>
+        </Console>
+
+        <RollingFile name="RollingFileDebug" fileName="${logFilePath}/logs/debug.log"
+                     filePattern="${logFilePath}/logs/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <Filters>
+                <ThresholdFilter level="DEBUG"/>
+                <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="${expression}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--最多保留20个日志文件-->
+            <DefaultRolloverStrategy max="20" min="0"/>
+        </RollingFile>
+
+        <RollingFile name="RollingFileInfo" fileName="${logFilePath}/logs/info.log"
+                     filePattern="${logFilePath}/logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="INFO"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="${expression}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--最多保留20个日志文件-->
+            <DefaultRolloverStrategy max="20" min="0"/>
+        </RollingFile>
+
+        <RollingFile name="RollingFileWarn" fileName="${logFilePath}/logs/warn.log"
+                     filePattern="${logFilePath}/logs/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="WARN"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="${expression}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--最多保留20个日志文件-->
+            <DefaultRolloverStrategy max="20" min="0"/>
+        </RollingFile>
+
+        <RollingFile name="RollingFileError" fileName="${logFilePath}/logs/error.log"
+                     filePattern="${logFilePath}/logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="ERROR"/>
+            <PatternLayout pattern="${expression}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--最多保留20个日志文件-->
+            <DefaultRolloverStrategy max="20" min="0"/>
+        </RollingFile>
+
+        <RollingFile name="RollingFileFatal" fileName="${logFilePath}/logs/fatal.log"
+                     filePattern="${logFilePath}/logs/$${date:yyyy-MM}/fatal-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="FATAL"/>
+            <PatternLayout pattern="${expression}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--最多保留20个日志文件-->
+            <DefaultRolloverStrategy max="20" min="0"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <!--过滤掉simm.spring.restapi一些无用的DEBUG信息-->
+        <Root level="all">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileDebug"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+            <appender-ref ref="RollingFileFatal"/>
+        </Root>
+    </Loggers>
+</Configuration>
