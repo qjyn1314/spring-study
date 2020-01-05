@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>spring-study</artifactId>
@@ -8,10 +8,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>spring-morning</artifactId>
+    <packaging>jar</packaging>
+    <artifactId>spring-distributed</artifactId>
     <version>${study.version}</version>
-    <packaging>war</packaging>
-    <name>${artifactId}</name>
+    <description>用于创建dubbo中的服务消费者</description>
 
     <dependencies>
         <dependency>
@@ -19,21 +19,10 @@
             <artifactId>spring-common</artifactId>
             <version>${study.version}</version>
         </dependency>
-        <dependency>
-            <groupId>spring-study</groupId>
-            <artifactId>spring-distributed</artifactId>
-            <version>${study.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
         <finalName>${artifactId}</finalName>
-        <resources>
-            <!--指定资源的位置（xml放在resources下，可以不用指定）-->
-            <resource>
-                <directory>src/main/java/com/study/modu/web/persistence/mapper/xml</directory>
-            </resource>
-        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -56,4 +45,6 @@
             </plugins>
         </pluginManagement>
     </build>
+
+
 </project>

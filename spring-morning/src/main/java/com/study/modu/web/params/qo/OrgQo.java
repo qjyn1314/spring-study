@@ -14,6 +14,11 @@ public class OrgQo {
 
     private Integer parentId;
 
+    public OrgQo(String name, Integer parentId) {
+        this.name = name;
+        this.parentId = parentId;
+    }
+
     public String getName() {
         return name;
     }

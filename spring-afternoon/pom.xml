@@ -20,6 +20,11 @@
             <artifactId>spring-common</artifactId>
             <version>${study.version}</version>
         </dependency>
+        <dependency>
+            <groupId>spring-study</groupId>
+            <artifactId>spring-distributed</artifactId>
+            <version>${study.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

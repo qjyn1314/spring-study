@@ -3,7 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
     <!--自动扫描-->
     <context:component-scan base-package="com.study.modu"/>
@@ -90,5 +91,23 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
+    <!--引入 dubbo 配置 -->
+    <!--    公共的dubbo配置-start-还可以优化到properties配置文件中-->
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="afternoon">
+        <dubbo:parameter key="shutdown.timeout" value="60000"/> <!-- 单位毫秒 -->
+    </dubbo:application>
+    <!--Dubbo 缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止 Spring 初始化完成，以便上线时，能及早发现问题，默认 check="true"。-->
+    <!--可以关闭所有服务的启动时检查 -->
+    <dubbo:consumer check="false"/>
+    <!-- 使用zookeeper注册中心暴露发现服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20881"/>
+    <!--    公共的dubbo配置-end-->
+
+    <import resource="classpath:spring/dubbo/dubbo-consummer.xml"/>
+    <import resource="classpath:spring/dubbo/dubbo-provider.xml"/>
 
 </beans>

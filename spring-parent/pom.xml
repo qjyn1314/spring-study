@@ -97,7 +97,7 @@
             <version>2.10.1</version>
         </dependency>
         <!--        spring相关依赖-end-->
-        <!--        common-工具包-start-->
+        <!--        model-工具包-start-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -108,7 +108,7 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
-        <!--        common-工具包-end-->
+        <!--        model-工具包-end-->
         <!--       web的servlet.4.0-start -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -178,22 +178,36 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
         </dependency>
-        <!--<dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>1.7.2</version>
+        <!--        swagger-end-->
+        <!--dubbo-start-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.6.7</version>
         </dependency>
         <dependency>
-            <groupId>com.github.caspar-chen</groupId>
-            <artifactId>swagger-ui-layer</artifactId>
-            <version>0.0.4</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>3.3.5</version>
-        </dependency>-->
-        <!--        swagger-end-->
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.44.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+            <version>4.2.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.13</version>
+        </dependency>
+        <!--dubbo-end-->
+
     </dependencies>
 
 

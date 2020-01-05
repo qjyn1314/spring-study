@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class BaseController extends BaseObject {
 
-    @Autowired
+    @Autowired(required = false)
     public HttpServletRequest request;
 
 

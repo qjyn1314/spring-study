@@ -28,6 +28,7 @@
         <module>spring-common</module>
         <module>spring-morning</module>
         <module>spring-afternoon</module>
+        <module>spring-distributed</module>
     </modules>
 
     <build>
