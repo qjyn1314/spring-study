@@ -186,9 +186,19 @@
             <version>2.6.7</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.13</version>
+        </dependency>
+        <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
             <version>4.1.44.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <version>4.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.curator</groupId>
@@ -201,10 +211,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--尝试使用阿里开源基于dubbo+zookeeper的分布式事务处理方案-seata-->
         <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-            <version>3.4.13</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-all</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <!--dubbo-end-->
 

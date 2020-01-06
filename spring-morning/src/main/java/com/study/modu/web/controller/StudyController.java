@@ -1,5 +1,6 @@
 package com.study.modu.web.controller;
 
+import com.alibaba.dubbo.rpc.RpcException;
 import com.study.modu.common.controller.BaseController;
 import com.study.modu.distributed.provider.DistributedAfternoonProviderService;
 import com.study.modu.parent.utils.DataUtils;
@@ -42,8 +43,10 @@ public class StudyController extends BaseController {
         try {
             String str = afternoonProviderService.getUser();
             logger.info("通过dubbo+zookeeper获取affternoon服务的用户信息：{}",str);
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (RpcException e) {
+            logger.error(e);
+        } catch (Exception bige){
+            logger.error(bige);
         }
         if (contextPath != null) {
             logger.info("进入判断......start");

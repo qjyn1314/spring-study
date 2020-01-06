@@ -1,5 +1,6 @@
 package com.study.modu.web.provider;
 
+import com.study.modu.distributed.model.UserDistributedQo;
 import com.study.modu.distributed.provider.DistributedAfternoonProviderService;
 import com.study.modu.web.persistence.entity.KoUser;
 import com.study.modu.web.persistence.service.IKoUserService;
@@ -25,5 +26,21 @@ public class DistributedAfternoonProviderServiceImpl implements DistributedAfter
         KoUser byId = userService.getById(9);
         System.out.println("开始获取用户信息!!!");
         return byId.toString();
+    }
+
+    /**
+     * 添加用户信息，为学习分布式事务练习
+     *
+     * @param userDistributedQo :
+     * @return boolean
+     * @author wangjunming
+     * @since 2020/1/5 15:25
+     */
+    @Override
+    public boolean initUser(UserDistributedQo userDistributedQo) {
+        int i = 10/0;
+        boolean b = userService.initUser(userDistributedQo);
+//        int i = 10/0;
+        return b;
     }
 }
