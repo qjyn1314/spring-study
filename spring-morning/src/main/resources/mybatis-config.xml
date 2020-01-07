@@ -10,7 +10,7 @@
          <!-- 查询时，关闭关联对象即时加载以提高性能 -->
          <setting name="lazyLoadingEnabled" value="false"/>
 
-         <setting name="logImpl" value="LOG4J" />
+         <setting name="logImpl" value="LOG4J2"/>
 
          <!-- 对于未知的SQL查询，允许返回不同的结果集以达到通用的效果 -->
          <setting name="multipleResultSetsEnabled" value="true"/>

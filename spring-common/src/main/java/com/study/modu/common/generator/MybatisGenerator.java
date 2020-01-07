@@ -51,6 +51,7 @@ public class MybatisGenerator extends BaseObject {
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setRestControllerStyle(true);
         strategy.setInclude(new String[]{"ko_user"});
+        //生成实体的@TableFile注解
         strategy.setEntityTableFieldAnnotationEnable(true);
         mpg.setStrategy(strategy);
         // 包配置
