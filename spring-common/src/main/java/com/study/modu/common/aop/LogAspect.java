@@ -1,5 +1,7 @@
 package com.study.modu.common.aop;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class LogAspect {
-
+    private static final Logger logger = LogManager.getLogger(LogAspect.class);
     /**
      * 日志切点
      *
@@ -39,8 +41,17 @@ public class LogAspect {
      */
     @Around("controllerLog()")
     public Object doAroundFeignClient(ProceedingJoinPoint joinPoint) throws Throwable {
-        return joinPoint.proceed();
-
+        logger.info("进入切面");
+        Object proceed = null;
+        try {
+            logger.info("进入切面--try");
+            proceed = joinPoint.proceed();
+        } catch (Throwable throwable) {
+            logger.info("进入切面--catch");
+            logger.error("接口抛出异常");
+            return null;
+        }
+        return proceed;
     }
 
 }
