@@ -86,7 +86,7 @@
         <!-- 监控数据库 -->
         <!--         <property name="filters" value="stat" />-->
         <!--<property name="filters" value="mergeStat" />-->
-<!--        <property name="filters" value="stat,log4j"/>-->
+        <property name="filters" value="stat,log4j2"/>
     </bean>
 
     <!-- mapper接口所在包名，Spring会自动查找其下的类 -->
@@ -106,19 +106,47 @@
     <!--引入 dubbo 配置 -->
     <!--    公共的dubbo配置-start-还可以优化到properties配置文件中-->
     <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
-        <dubbo:application name="morning">
-            <dubbo:parameter key="shutdown.timeout" value="60000"/> <!-- 单位毫秒 -->
-        </dubbo:application>
+    <dubbo:application name="morning">
+        <dubbo:parameter key="shutdown.timeout" value="60000"/> <!-- 单位毫秒 -->
+    </dubbo:application>
     <!--Dubbo 缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止 Spring 初始化完成，以便上线时，能及早发现问题，默认 check="true"。-->
     <!--可以关闭所有服务的启动时检查 -->
-        <dubbo:consumer check="false"/>
+    <dubbo:consumer check="false"/>
     <!-- 使用zookeeper注册中心暴露发现服务地址 -->
-        <dubbo:registry protocol="zookeeper" address="47.104.78.115:4181"/>
+    <dubbo:registry protocol="zookeeper" address="47.104.78.115:4181"/>
     <!-- 用dubbo协议在20880端口暴露服务 -->
-    <dubbo:protocol name="dubbo" port="20880"/>
+    <dubbo:protocol name="dubbo" port="20885"/>
     <!--    公共的dubbo配置-end-->
     <import resource="classpath:spring/dubbo/dubbo-provider.xml"/>
     <import resource="classpath:spring/dubbo/dubbo-consummer.xml"/>
+
+
+    <!-- 配置 JedisPoolConfig 实例 -->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxTotal" value="${redis.maxActive}"/>
+        <property name="maxWaitMillis" value="${redis.maxWait}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+    </bean>
+
+    <!-- 配置JedisConnectionFactory -->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <!--IP地址 -->
+        <property name="hostName" value="${redis.host}"/>
+        <!--端口号  -->
+        <property name="port" value="${redis.port}"/>
+        <!--如果Redis设置有密码  -->
+        <property name="password" value="${redis.pass}"/>
+        <!--redis数据库序号，redis默认有16个库（从0-15），这里默认是0 -->
+        <property name="database" value="${redis.dbIndex}"/>
+
+        <property name="poolConfig" ref="poolConfig"/>
+    </bean>
+
+    <!-- redis template definition 配置RedisTemplate -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+    </bean>
 
 
 </beans>

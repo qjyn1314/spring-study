@@ -72,6 +72,25 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <!--整合redis-start-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>2.2.3.RELEASE</version>
+        </dependency>
+        <!--整合redis-end-->
+        <!--整合MongoDB-start-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>2.2.3.RELEASE</version>
+        </dependency>
+        <!--整合MongoDB-end-->
         <!--        spring-end-->
         <!--        spring切面的依赖jar包-start -->
         <dependency>
@@ -118,11 +137,6 @@
         <!--       web的servlet.4.0-end -->
         <!--        日志相关-start -->
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
@@ -130,11 +144,6 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-web</artifactId>
             <version>${log4j.version}</version>
         </dependency>
         <!--        日志相关-end -->
@@ -218,6 +227,24 @@
             <version>1.0.0</version>
         </dependency>
         <!--dubbo-end-->
+
+        <!--微信公众号开发应用-start -->
+        <!--公众号的引用-->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-mp</artifactId>
+            <version>3.5.0</version>
+            <!--解决与项目中的日志框架依赖冲突-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--微信公众号开发应用-end -->
+
+
 
     </dependencies>
 

@@ -6,6 +6,8 @@ import com.study.modu.distributed.provider.DistributedAfternoonProviderService;
 import com.study.modu.parent.utils.DataUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(value = "学习的控制层，仅个人使用")
 public class StudyController extends BaseController {
+    private static final Logger logger = LogManager.getLogger(StudyController.class);
 
     @Autowired
     private DistributedAfternoonProviderService afternoonProviderService;
@@ -42,10 +45,10 @@ public class StudyController extends BaseController {
 
         try {
             String str = afternoonProviderService.getUser();
-            logger.info("通过dubbo+zookeeper获取affternoon服务的用户信息：{}",str);
+            logger.info("通过dubbo+zookeeper获取affternoon服务的用户信息：{}", str);
         } catch (RpcException e) {
             logger.error(e);
-        } catch (Exception bige){
+        } catch (Exception bige) {
             logger.error(bige);
         }
         if (contextPath != null) {

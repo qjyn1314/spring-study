@@ -5,6 +5,7 @@ import com.study.modu.distributed.provider.DistributedAfternoonProviderService;
 import com.study.modu.web.persistence.entity.KoUser;
 import com.study.modu.web.persistence.service.IKoUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
