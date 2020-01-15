@@ -5,6 +5,8 @@ import com.study.modu.distributed.provider.DistributedMorningProviderService;
 import com.study.modu.parent.utils.DataUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "学习的控制层，仅个人使用")
 public class StudyController extends BaseController {
-
+    private static final Logger logger = LogManager.getLogger(StudyController.class);
     /*服务提供者*/
     @Autowired
     private DistributedMorningProviderService morningProviderService;

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(value = "学习的控制层，仅个人使用")
 public class StudyController extends BaseController {
+
     private static final Logger logger = LogManager.getLogger(StudyController.class);
 
     @Autowired
