@@ -7,7 +7,8 @@
     <Properties>
         <Property name="logFilePath">/var/spring-morning</Property>
         <!--日志输出格式-->
-        <Property name="expression">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36}-%-5level(%F:%L)>>%M - %msg%xEx%n</Property>
+        <Property name="expression">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36}-%-5level(%F:%L)>>%M - %msg%xEx%n
+        </Property>
     </Properties>
 
     <Appenders>

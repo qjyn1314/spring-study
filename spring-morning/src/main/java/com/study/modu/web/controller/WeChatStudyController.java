@@ -113,7 +113,7 @@ public class WeChatStudyController extends BaseController {
             WxMpXmlMessage inMessage = WxMpXmlMessage.fromXml(request.getInputStream());
             logger.info("获取到关注公众号的信息是：{}", JSON.toJSONString(inMessage, SerializerFeature.WriteDateUseDateFormat));
             //为公众号的原始ID
-            String fromUser = inMessage.getFromUser();
+            String fromUser = inMessage.getToUser();
             //--TODO--需要将公众号的原始ID，以及关注公众号用户的openID进行存到数据库
             //--TODO--需要将公众号所配置的信息，以及回复内容进行查询并回复给用户
             String content = "欢迎关注开发公众号";

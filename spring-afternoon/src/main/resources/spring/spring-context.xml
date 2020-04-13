@@ -110,4 +110,43 @@
     <import resource="classpath:spring/dubbo/dubbo-consummer.xml"/>
     <import resource="classpath:spring/dubbo/dubbo-provider.xml"/>
 
+
+
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="defaultEncoding" value="utf-8" />
+        <property name="templateLoaderPath" value="/"/>
+        <!-- FreeMarker默认每隔5秒检查模板是否被更新，如果已经更新了，就会重新加载并分析模板。 但经常检查模板是否更新可能比较耗时。如果你的应用运行在生产模式下，而且你预期模板不会经常更新，
+           则可以将更新的延迟时间延长至一个小时或者更久。 可以通过为freemarkerSettings属性设置template_update_delay达到这一目的 -->
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="tag_syntax">auto_detect</prop>
+                <prop key="template_update_delay">5</prop>
+                <prop key="defaultEncoding">UTF-8</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="boolean_format">true,false</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="number_format">0.######</prop>
+                <prop key="whitespace_stripping">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 配置freeMarker视图解析器 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+        <property name="prefix" value=""/><!-- 上面已经配了，这里就不用配啦 -->
+        <property name="suffix" value=".ftl" />
+        <property name="contentType" value="text/html; charset=utf-8" />
+        <property name="requestContextAttribute" value="request" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+
+    </bean>
+
 </beans>
